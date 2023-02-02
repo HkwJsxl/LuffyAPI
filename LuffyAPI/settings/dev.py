@@ -50,7 +50,7 @@ ROOT_URLCONF = "LuffyAPI.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
+        # "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -215,3 +215,14 @@ TX_SMS_CODE_EXPIRATION = '3'
 # 首页轮播图
 HOME_BANNER_LIST = ''
 HOME_BANNER_EXPIRATION = 60 * 60 * 24
+
+
+# 首页轮播图返回条数
+HOME_BANNER_COUNT = 4
+
+# 路径和端口号
+BACKEND_URL = 'http://127.0.0.1:8000'
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = '6379'
+MYSQL_HOST = '127.0.0.1'
+MYSQL_PORT = '3306'

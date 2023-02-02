@@ -8,7 +8,7 @@ router = SimpleRouter()
 router.register('banner', views.BannerView)
 
 urlpatterns = [
-
+    path('update_banner/', views.UpdateBanner.as_view())
 ]
 
 urlpatterns += router.urls
