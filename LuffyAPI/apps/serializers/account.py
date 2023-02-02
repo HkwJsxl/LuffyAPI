@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework_jwt.serializers import jwt_payload_handler, jwt_encode_handler
 
-from . import models
+from user import models
 from LuffyAPI.settings import dev
 from LuffyAPI.libs.tx_sms import send_sms
 
