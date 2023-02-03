@@ -149,7 +149,7 @@ class CourseSection(BaseModel):
         (2, '视频')
     )
     name = models.CharField(max_length=128, verbose_name="课时标题")
-    orders = models.PositiveSmallIntegerField(verbose_name="课时排序")
+    ordering = models.PositiveSmallIntegerField(verbose_name="课时排序")
     section_type = models.SmallIntegerField(default=2, choices=section_type_choices, verbose_name="课时种类")
     section_link = models.CharField(max_length=255, blank=True, null=True, verbose_name="课时链接",
                                     help_text="若是video，填vid,若是文档，填link")
@@ -167,3 +167,6 @@ class CourseSection(BaseModel):
 
     def __str__(self):
         return "%s-%s" % (self.chapter, self.name)
+
+    def section_type_name(self):
+        return self.get_section_type_display()

@@ -172,7 +172,7 @@ CACHES = {
 
 REST_FRAMEWORK = {
     # 异常处理
-    'EXCEPTION_HANDLER': 'LuffyAPI.extension.exceptions.re_exception_handler',
+    # 'EXCEPTION_HANDLER': 'LuffyAPI.extension.exceptions.re_exception_handler',
     # 分页配置(?limit=1,符合筛选条件的取出一条)
     "DEFAULT_PAGINATION_CLASS": "LuffyAPI.extension.page.ReLimitOffsetPagination",
 }
