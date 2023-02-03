@@ -102,8 +102,8 @@ USE_TZ = False
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_URL = "/static/"
-MEDIA_URL = '/media/'
+STATIC_URL = "static/"
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 AUTH_USER_MODEL = 'user.userinfo'
 
@@ -171,7 +171,10 @@ CACHES = {
 }
 
 REST_FRAMEWORK = {
+    # 异常处理
     'EXCEPTION_HANDLER': 'LuffyAPI.extension.exceptions.re_exception_handler',
+    # 分页配置(?limit=1,符合筛选条件的取出一条)
+    "DEFAULT_PAGINATION_CLASS": "LuffyAPI.extension.page.ReLimitOffsetPagination",
 }
 
 JWT_AUTH = {
@@ -216,7 +219,6 @@ TX_SMS_CODE_EXPIRATION = '3'
 # 首页轮播图
 HOME_BANNER_LIST = ''
 HOME_BANNER_EXPIRATION = 60 * 60 * 24
-
 
 # 首页轮播图返回条数
 HOME_BANNER_COUNT = 4

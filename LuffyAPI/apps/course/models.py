@@ -34,6 +34,7 @@ class Course(BaseModel):
         (2, '预上线'),
     )
     name = models.CharField(max_length=128, verbose_name="课程名称")
+    price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="课程原价", default=0)
     course_image = models.ImageField(upload_to="courses", max_length=255, verbose_name="封面图片",
                                      blank=True, null=True)
     course_type = models.SmallIntegerField(choices=course_type, default=0, verbose_name="付费类型")
@@ -45,8 +46,8 @@ class Course(BaseModel):
     attachment_path = models.FileField(upload_to="attachment", max_length=128, verbose_name="课件路径",
                                        blank=True, null=True)
     status = models.SmallIntegerField(choices=status_choices, default=0, verbose_name="课程状态")
-    price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="课程原价", default=0)
 
+    # 优化字段
     students = models.IntegerField(verbose_name="学习人数", default=0)
     sections = models.IntegerField(verbose_name="总课时数量", default=0)
     publish_sections = models.IntegerField(verbose_name="课时更新数量", default=0)
@@ -63,6 +64,36 @@ class Course(BaseModel):
 
     def __str__(self):
         return "%s" % self.name
+
+    def course_type_name(self):
+        return self.get_course_type_display()
+
+    def level_name(self):
+        return self.get_level_display()
+
+    def status_name(self):
+        return self.get_status_display()
+
+    def course_category_name(self):
+        return self.course_category.name
+
+    def course_section(self):
+        course_chapter_queryset = self.course_chapters.all()
+        course_section_list = []
+        for course_chapter in course_chapter_queryset:
+            course_section_queryset = course_chapter.course_sections.all()
+            for course_section in course_section_queryset:
+                course_section_list.append({
+                    'id': course_section.id,
+                    'name': course_section.name,
+                    'section_type_name': course_section.get_section_type_display(),
+                    'section_link': course_section.section_link,
+                    'duration': course_section.duration,
+                    'free_trail': course_section.free_trail,
+                })
+                if len(course_section_list) == 4:
+                    return course_section_list
+        return course_section_list
 
 
 class Teacher(BaseModel):
@@ -87,6 +118,9 @@ class Teacher(BaseModel):
     def __str__(self):
         return "%s" % self.name
 
+    def role_name(self):
+        return self.get_role_display()
+
 
 class CourseChapter(BaseModel):
     """章节"""
@@ -96,7 +130,7 @@ class CourseChapter(BaseModel):
     publish_date = models.DateField(verbose_name="发布日期", auto_now_add=True)
 
     course = models.ForeignKey("Course", related_name='course_chapters', on_delete=models.CASCADE,
-                               verbose_name="课程名称", db_constraint=False,)
+                               verbose_name="课程名称", db_constraint=False, )
 
     class Meta:
         db_table = "luffy_course_chapter"
@@ -124,7 +158,7 @@ class CourseSection(BaseModel):
     free_trail = models.BooleanField(verbose_name="是否可试看", default=False)
 
     chapter = models.ForeignKey("CourseChapter", related_name='course_sections', on_delete=models.CASCADE,
-                                verbose_name="课程章节", db_constraint=False,)
+                                verbose_name="课程章节", db_constraint=False, )
 
     class Meta:
         db_table = "luffy_course_Section"
