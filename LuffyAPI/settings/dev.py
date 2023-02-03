@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     'user.apps.UserConfig',
     'home.apps.HomeConfig',
+    'course.apps.CourseConfig',
 
 ]
 

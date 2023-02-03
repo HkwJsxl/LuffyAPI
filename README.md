@@ -4,6 +4,8 @@
 
 > ├── LuffyAPI
 > 
+> 	├── resources/		外部资源文件夹
+> 
 > 	├── celery_task/		celery - 包
 >	
 > 	├── logs/		项目开发日志目录 - 包
