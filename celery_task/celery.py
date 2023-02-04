@@ -22,14 +22,14 @@ app.conf.enable_utc = False
 from datetime import timedelta
 from celery.schedules import crontab
 
-app.conf.beat_schedule = {
-    'add-task': {
-        'task': 'home.task.update_banner_cache.update_banner_list',
-        'schedule': timedelta(seconds=5),
-        # 'schedule': crontab(hour=8, day_of_week=1),  # 每周一早八点
-        # 'args': ('', ),
-    }
-}
+# app.conf.beat_schedule = {
+#     'add-task': {
+#         'task': 'home.task.update_banner_cache.update_banner_list',
+#         'schedule': timedelta(seconds=5),
+#         # 'schedule': crontab(hour=8, day_of_week=1),  # 每周一早八点
+#         # 'args': ('', ),
+#     }
+# }
 
 # 启动celery
 # celery -A celery_task worker -l info -P eventlet

@@ -2,13 +2,13 @@ from django.urls import path, re_path
 
 from rest_framework.routers import SimpleRouter
 
-from . import views
+from views import home
 
 router = SimpleRouter()
-router.register('banner', views.BannerView)
+router.register('banner', home.BannerView)
 
 urlpatterns = [
-    path('update_banner/', views.UpdateBanner.as_view())
+    path('update_banner/', home.UpdateBanner.as_view())
 ]
 
 urlpatterns += router.urls
