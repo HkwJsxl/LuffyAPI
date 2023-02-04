@@ -33,6 +33,10 @@ class Course(BaseModel):
         (1, '下线'),
         (2, '预上线'),
     )
+    discount_choices = (
+        (0, ''),
+        (1, '折'),
+    )
     name = models.CharField(max_length=128, verbose_name="课程名称")
     price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="课程原价", default=0)
     course_image = models.ImageField(upload_to="courses", max_length=255, verbose_name="封面图片",
@@ -47,6 +51,9 @@ class Course(BaseModel):
                                        blank=True, null=True)
     status = models.SmallIntegerField(choices=status_choices, default=0, verbose_name="课程状态")
 
+    # 打折优惠
+    discount_type = models.SmallIntegerField(choices=discount_choices, default=0, verbose_name='是否打折')
+    discount_price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="课程打折价格", default=0)
     # 优化字段
     students = models.IntegerField(verbose_name="学习人数", default=0)
     sections = models.IntegerField(verbose_name="总课时数量", default=0)
@@ -94,6 +101,9 @@ class Course(BaseModel):
                 if len(course_section_list) == 4:
                     return course_section_list
         return course_section_list
+
+    def discount_name(self):
+        return self.get_discount_type_display()
 
 
 class Teacher(BaseModel):

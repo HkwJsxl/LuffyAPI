@@ -41,6 +41,8 @@ class CourseModelSerializer(serializers.ModelSerializer):
             'students',
             'sections',
             'publish_sections',
+            'discount_name',
+            'discount_price',
 
             'course_type_name',
             'level_name',

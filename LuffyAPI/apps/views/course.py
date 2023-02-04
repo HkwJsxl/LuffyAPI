@@ -51,5 +51,7 @@ class CourseSearchChapterView(GenericViewSet, ReListModelMixin):
     filter_backends = (SearchFilter,)
     search_fields = ('name',)
 
+    pagination_class = PageNumberPagination
+
     queryset = models.Course.objects.filter(is_delete=False, is_show=True).order_by('orders')
     serializer_class = course.CourseModelSerializer
