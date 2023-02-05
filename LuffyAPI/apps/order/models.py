@@ -26,7 +26,9 @@ class Order(OrderBaseModel):
     )
     subject = models.CharField(max_length=150, verbose_name="订单标题")
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="订单总价", default=0)
+    # 自己生成
     out_trade_no = models.CharField(max_length=64, verbose_name="订单号", unique=True)
+    # 支付宝返回的
     trade_no = models.CharField(max_length=64, null=True, verbose_name="流水号")
 
     order_status = models.SmallIntegerField(choices=status_choices, default=0, verbose_name="订单状态")

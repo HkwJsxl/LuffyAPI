@@ -4,11 +4,11 @@ from django.core.cache import cache
 
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from rest_framework_jwt.serializers import jwt_payload_handler, jwt_encode_handler
 
 from user import models
 from LuffyAPI.settings import dev
 from LuffyAPI.libs.tx_sms import send_sms
+from LuffyAPI.extension.auth import write_token
 
 
 class UserRegModelSerializer(serializers.ModelSerializer):
@@ -80,8 +80,7 @@ class UserLoginSerializer(serializers.Serializer):
             if not is_right:
                 raise ValidationError('密码错误.')
         # 签名
-        payload = jwt_payload_handler(user_obj)
-        token = jwt_encode_handler(payload)
+        token = write_token(user_obj)
         # 控制返回格式
         self.context['result'] = {
             'token': token,
@@ -112,8 +111,7 @@ class UserLoginSmsSerializer(serializers.Serializer):
                 if sms_code != code:
                     raise ValidationError('验证码错误或失效.')
             # 签名
-            payload = jwt_payload_handler(user_obj)
-            token = jwt_encode_handler(payload)
+            token = write_token(user_obj)
             # 控制返回格式
             self.context['result'] = {
                 'token': token,
