@@ -6,7 +6,6 @@ from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()
 router.register('pay', order.OrderPayView)
-# router.register('pay/success', order.OrderPayView)
 
 """
 1）支付接口(需要登录认证)：前台提交商品等信息，得到支付链接
@@ -21,7 +20,7 @@ router.register('pay', order.OrderPayView)
 """
 
 urlpatterns = [
-
+    path('pay/success/', order.OrderPaySuccessView.as_view(), name='pay_success')
 ]
 
 urlpatterns += router.urls

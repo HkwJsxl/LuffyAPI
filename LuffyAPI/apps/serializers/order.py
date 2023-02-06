@@ -37,14 +37,15 @@ class OrderPayModelSerializer(serializers.ModelSerializer):
     """
 
     def _check_total_amount(self, attrs):
+        # 不考虑打折
         total_amount = self.initial_data.get('total_amount')
         # initial_data是最原始的数据，拿不到serializers.PrimaryKeyRelatedField之后的内容
-        # course_list = self.initial_data.get('courses')
+        # 错误：course_list = self.initial_data.get('courses')
         course_list = attrs.get('courses')
         price_total = 0
         for course in course_list:
             price_total += course.price
-        if total_amount != float(price_total):
+        if float(total_amount) != float(price_total):
             raise ValidationError('订单总价错误.')
         return total_amount
 
@@ -83,14 +84,16 @@ class OrderPayModelSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         courses = validated_data.pop('courses')
-
         with transaction.atomic():
             order_obj = models.Order.objects.create(**validated_data)
             course_detail_list = []
             for course in courses:
                 course_detail_list.append(
-                    models.OrderDetail(course=course, order=order_obj, price=course.price, real_price=course.price)
+                    models.OrderDetail(
+                        course=course, order=order_obj,
+                        price=course.price,
+                        real_price=course.price
+                    )
                 )
             models.OrderDetail.objects.bulk_create(course_detail_list)
-
         return validated_data
