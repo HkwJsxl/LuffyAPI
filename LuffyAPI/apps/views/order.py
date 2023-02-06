@@ -54,20 +54,51 @@ class OrderPaySuccessView(APIView):
 
     def post(self, request, *args, **kwargs):
         # 支付宝的post异步回调(沙箱环境下不会回调，上线需要公网IP)
-        print(request.query_params)
-        print(request.data)
-        data = request.data
-        signature = data.pop("sign")
-        success = alipay.verify(data, signature)
-        out_trade_no = data.get('out_trade_no')
-        trade_no = data.get('trade_no')
-        if success and data["trade_status"] in ("TRADE_SUCCESS", "TRADE_FINISHED"):
-            models.Order.objects.filter(out_trade_no=out_trade_no).update(
-                # 更新流水号，支付状态，支付时间
-                trade_no=trade_no, order_status=1, pay_time=datetime.datetime.now()
-            )
-            log.warning('%s订单支付成功' % out_trade_no)
-            return Response('success')
-        else:
-            log.error('%s订单支付失败' % out_trade_no)
-            return Response('fail')
+        # 回调格式
+        """
+        data = {
+             "subject": "测试订单",
+             "gmt_payment": "2016-11-16 11:42:19",
+             "charset": "utf-8",
+             "seller_id": "xxxx",
+             "trade_status": "TRADE_SUCCESS",
+             "buyer_id": "xxxx",
+             "auth_app_id": "xxxx",
+             "buyer_pay_amount": "0.01",
+             "version": "1.0",
+             "gmt_create": "2016-11-16 11:42:18",
+             "trade_no": "xxxx",
+             "fund_bill_list": "[{\"amount\":\"0.01\",\"fundChannel\":\"ALIPAYACCOUNT\"}]",
+             "app_id": "xxxx",
+             "notify_time": "2016-11-16 11:42:19",
+             "point_amount": "0.00",
+             "total_amount": "0.01",
+             "notify_type": "trade_status_sync",
+             "out_trade_no": "xxxx",
+             "buyer_logon_id": "xxxx",
+             "notify_id": "xxxx",
+             "seller_email": "xxxx",
+             "receipt_amount": "0.01",
+             "invoice_amount": "0.01",
+             "sign": "xxx"
+        }
+        """
+        try:
+            data = request.data
+            signature = data.pop("sign")
+            success = alipay.verify(data, signature)
+            out_trade_no = data.get('out_trade_no')
+            trade_no = data.get('trade_no')
+            if success and data["trade_status"] in ("TRADE_SUCCESS", "TRADE_FINISHED"):
+                models.Order.objects.filter(out_trade_no=out_trade_no).update(
+                    # 更新流水号，支付状态，支付时间
+                    trade_no=trade_no, order_status=1, pay_time=datetime.datetime.now()
+                )
+                log.warning('%s订单支付成功' % out_trade_no)
+                return Response('success')
+            else:
+                log.error('%s订单支付失败' % out_trade_no)
+                return Response('fail')
+        except Exception as e:
+            log.error('支付宝的post异步回调错误-%s' % str(e))
+            return Response('errors')
