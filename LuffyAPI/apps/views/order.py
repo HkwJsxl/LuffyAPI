@@ -84,7 +84,8 @@ class OrderPaySuccessView(APIView):
         }
         """
         try:
-            data = request.data
+            # data = request.data  # QueryDict不能pop值
+            data = request.data.dict()
             signature = data.pop("sign")
             success = alipay.verify(data, signature)
             out_trade_no = data.get('out_trade_no')
