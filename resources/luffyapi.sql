@@ -11,7 +11,7 @@
  Target Server Version : 80032
  File Encoding         : 65001
 
- Date: 03/02/2023 10:13:15
+ Date: 08/02/2023 17:18:47
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `auth_group`  (
   `name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_group
@@ -63,7 +63,7 @@ CREATE TABLE `auth_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_permission_content_type_id_codename_01ab375a_uniq`(`content_type_id` ASC, `codename` ASC) USING BTREE,
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -116,6 +116,14 @@ INSERT INTO `auth_permission` VALUES (45, 'Can add 课时', 12, 'add_coursesecti
 INSERT INTO `auth_permission` VALUES (46, 'Can change 课时', 12, 'change_coursesection');
 INSERT INTO `auth_permission` VALUES (47, 'Can delete 课时', 12, 'delete_coursesection');
 INSERT INTO `auth_permission` VALUES (48, 'Can view 课时', 12, 'view_coursesection');
+INSERT INTO `auth_permission` VALUES (49, 'Can add 订单详情', 13, 'add_orderdetail');
+INSERT INTO `auth_permission` VALUES (50, 'Can change 订单详情', 13, 'change_orderdetail');
+INSERT INTO `auth_permission` VALUES (51, 'Can delete 订单详情', 13, 'delete_orderdetail');
+INSERT INTO `auth_permission` VALUES (52, 'Can view 订单详情', 13, 'view_orderdetail');
+INSERT INTO `auth_permission` VALUES (53, 'Can add 订单记录', 14, 'add_order');
+INSERT INTO `auth_permission` VALUES (54, 'Can change 订单记录', 14, 'change_order');
+INSERT INTO `auth_permission` VALUES (55, 'Can delete 订单记录', 14, 'delete_order');
+INSERT INTO `auth_permission` VALUES (56, 'Can view 订单记录', 14, 'view_order');
 
 -- ----------------------------
 -- Table structure for django_admin_log
@@ -136,7 +144,7 @@ CREATE TABLE `django_admin_log`  (
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_luffy_userinfo_id` FOREIGN KEY (`user_id`) REFERENCES `luffy_userinfo` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `django_admin_log_chk_1` CHECK (`action_flag` >= 0)
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -156,7 +164,7 @@ CREATE TABLE `django_content_type`  (
   `model` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `django_content_type_app_label_model_76bd3d3b_uniq`(`app_label` ASC, `model` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -171,6 +179,8 @@ INSERT INTO `django_content_type` VALUES (10, 'course', 'coursechapter');
 INSERT INTO `django_content_type` VALUES (12, 'course', 'coursesection');
 INSERT INTO `django_content_type` VALUES (11, 'course', 'teacher');
 INSERT INTO `django_content_type` VALUES (7, 'home', 'banner');
+INSERT INTO `django_content_type` VALUES (14, 'order', 'order');
+INSERT INTO `django_content_type` VALUES (13, 'order', 'orderdetail');
 INSERT INTO `django_content_type` VALUES (5, 'sessions', 'session');
 INSERT INTO `django_content_type` VALUES (6, 'user', 'userinfo');
 
@@ -184,7 +194,7 @@ CREATE TABLE `django_migrations`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -212,6 +222,12 @@ INSERT INTO `django_migrations` VALUES (20, 'sessions', '0001_initial', '2023-01
 INSERT INTO `django_migrations` VALUES (21, 'course', '0001_initial', '2023-02-03 10:05:32.604851');
 INSERT INTO `django_migrations` VALUES (22, 'home', '0002_auto_20230203_1005', '2023-02-03 10:05:32.624249');
 INSERT INTO `django_migrations` VALUES (23, 'course', '0002_rename_pub_date_course_publish_date', '2023-02-03 10:12:11.119481');
+INSERT INTO `django_migrations` VALUES (24, 'course', '0003_auto_20230203_2136', '2023-02-03 21:36:36.543783');
+INSERT INTO `django_migrations` VALUES (25, 'course', '0004_alter_coursesection_ordering', '2023-02-03 21:40:45.586779');
+INSERT INTO `django_migrations` VALUES (26, 'course', '0004_auto_20230204_1033', '2023-02-04 10:33:33.716396');
+INSERT INTO `django_migrations` VALUES (27, 'order', '0001_initial', '2023-02-05 16:01:08.632171');
+INSERT INTO `django_migrations` VALUES (28, 'user', '0002_auto_20230205_1658', '2023-02-05 16:58:42.255519');
+INSERT INTO `django_migrations` VALUES (29, 'user', '0003_alter_userinfo_token', '2023-02-05 17:08:56.983183');
 
 -- ----------------------------
 -- Table structure for django_session
@@ -282,17 +298,19 @@ CREATE TABLE `luffy_course`  (
   `publish_sections` int NOT NULL,
   `course_category_id` bigint NULL DEFAULT NULL,
   `teacher_id` bigint NULL DEFAULT NULL,
+  `discount_price` decimal(8, 2) NOT NULL,
+  `discount_type` smallint NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `luffy_course_course_category_id_ae7376a3`(`course_category_id` ASC) USING BTREE,
   INDEX `luffy_course_teacher_id_0202c7b2`(`teacher_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of luffy_course
 -- ----------------------------
-INSERT INTO `luffy_course` VALUES (1, 0, 1, '2019-07-14 13:54:33.095201', '2019-07-14 13:54:33.095238', 1, 'Python开发21天入门', 'courses/alex_python.png', 0, 'Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土', 0, '2019-07-14', 21, '', 0, 0.00, 231, 120, 120, 1, 1);
-INSERT INTO `luffy_course` VALUES (2, 0, 1, '2019-07-14 13:56:05.051103', '2019-07-14 13:56:05.051142', 2, 'Python项目实战', 'courses/mjj_python.png', 0, '', 1, '2019-07-14', 30, '', 0, 99.00, 340, 120, 120, 1, 2);
-INSERT INTO `luffy_course` VALUES (3, 0, 1, '2019-07-14 13:57:21.190053', '2019-07-14 13:57:21.190095', 3, 'Linux系统基础5周入门精讲', 'courses/lyy_linux.png', 0, '', 0, '2019-07-14', 25, '', 0, 39.00, 219, 100, 100, 2, 3);
+INSERT INTO `luffy_course` VALUES (1, 0, 1, '2019-07-14 13:54:33.095201', '2019-07-14 13:54:33.095238', 1, 'Python开发21天入门', 'courses/alex_python.png', 0, 'Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土&&&Python从入门到入土', 0, '2019-07-14', 21, '', 0, 1.00, 231, 120, 120, 1, 1, 1.11, 0);
+INSERT INTO `luffy_course` VALUES (2, 0, 1, '2019-07-14 13:56:05.051103', '2019-07-14 13:56:05.051142', 2, 'Python项目实战', 'courses/mjj_python.png', 0, '', 1, '2019-07-14', 30, '', 0, 99.00, 340, 120, 120, 1, 2, 2.11, 0);
+INSERT INTO `luffy_course` VALUES (3, 0, 1, '2019-07-14 13:57:21.190053', '2019-07-14 13:57:21.190095', 3, 'Linux系统基础5周入门精讲', 'courses/lyy_linux.png', 0, '', 0, '2019-07-14', 25, '', 0, 39.00, 219, 100, 100, 2, 3, 3.11, 0);
 
 -- ----------------------------
 -- Table structure for luffy_course_category
@@ -308,7 +326,7 @@ CREATE TABLE `luffy_course_category`  (
   `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of luffy_course_category
@@ -334,7 +352,7 @@ CREATE TABLE `luffy_course_chapter`  (
   `course_id` bigint NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `luffy_course_chapter_course_id_fa245b81`(`course_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of luffy_course_chapter
@@ -355,27 +373,77 @@ CREATE TABLE `luffy_course_section`  (
   `created_time` datetime(6) NOT NULL,
   `updated_time` datetime(6) NOT NULL,
   `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `orders` smallint UNSIGNED NOT NULL,
+  `orders` int NOT NULL,
   `section_type` smallint NOT NULL,
   `section_link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `duration` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `publish_date` datetime(6) NOT NULL,
   `free_trail` tinyint(1) NOT NULL,
   `chapter_id` bigint NOT NULL,
+  `ordering` smallint NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `luffy_course_Section_chapter_id_4517c0af`(`chapter_id` ASC) USING BTREE,
-  CONSTRAINT `luffy_course_section_chk_1` CHECK (`orders` >= 0)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  INDEX `luffy_course_Section_chapter_id_4517c0af`(`chapter_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of luffy_course_section
 -- ----------------------------
-INSERT INTO `luffy_course_section` VALUES (1, 0, 1, '2019-07-14 14:02:33.779098', '2019-07-14 14:02:33.779135', '计算机原理上', 1, 2, NULL, NULL, '2019-07-14 14:02:33.779193', 1, 1);
-INSERT INTO `luffy_course_section` VALUES (2, 0, 1, '2019-07-14 14:02:56.657134', '2019-07-14 14:02:56.657173', '计算机原理下', 2, 2, NULL, NULL, '2019-07-14 14:02:56.657227', 1, 1);
-INSERT INTO `luffy_course_section` VALUES (3, 0, 1, '2019-07-14 14:03:20.493324', '2019-07-14 14:03:52.329394', '环境搭建上', 1, 2, NULL, NULL, '2019-07-14 14:03:20.493420', 0, 2);
-INSERT INTO `luffy_course_section` VALUES (4, 0, 1, '2019-07-14 14:03:36.472742', '2019-07-14 14:03:36.472779', '环境搭建下', 2, 2, NULL, NULL, '2019-07-14 14:03:36.472831', 0, 2);
-INSERT INTO `luffy_course_section` VALUES (5, 0, 1, '2019-07-14 14:04:19.338153', '2019-07-14 14:04:19.338192', 'web项目的创建', 1, 2, NULL, NULL, '2019-07-14 14:04:19.338252', 1, 3);
-INSERT INTO `luffy_course_section` VALUES (6, 0, 1, '2019-07-14 14:04:52.895855', '2019-07-14 14:04:52.895890', 'Linux的环境搭建', 1, 2, NULL, NULL, '2019-07-14 14:04:52.895942', 1, 4);
+INSERT INTO `luffy_course_section` VALUES (1, 0, 1, '2019-07-14 14:02:33.779098', '2019-07-14 14:02:33.779135', '计算机原理上', 1, 2, NULL, NULL, '2019-07-14 14:02:33.779193', 1, 1, 1);
+INSERT INTO `luffy_course_section` VALUES (2, 0, 1, '2019-07-14 14:02:56.657134', '2019-07-14 14:02:56.657173', '计算机原理下', 2, 2, NULL, NULL, '2019-07-14 14:02:56.657227', 1, 1, 2);
+INSERT INTO `luffy_course_section` VALUES (3, 0, 1, '2019-07-14 14:03:20.493324', '2019-07-14 14:03:52.329394', '环境搭建上', 3, 2, NULL, NULL, '2019-07-14 14:03:20.493420', 0, 2, 1);
+INSERT INTO `luffy_course_section` VALUES (4, 0, 1, '2019-07-14 14:03:36.472742', '2019-07-14 14:03:36.472779', '环境搭建下', 4, 2, NULL, NULL, '2019-07-14 14:03:36.472831', 0, 2, 1);
+INSERT INTO `luffy_course_section` VALUES (5, 0, 1, '2019-07-14 14:04:19.338153', '2019-07-14 14:04:19.338192', 'web项目的创建', 5, 2, NULL, NULL, '2019-07-14 14:04:19.338252', 1, 3, 2);
+INSERT INTO `luffy_course_section` VALUES (6, 0, 1, '2019-07-14 14:04:52.895855', '2019-07-14 14:04:52.895890', 'Linux的环境搭建', 6, 2, NULL, NULL, '2019-07-14 14:04:52.895942', 1, 4, 1);
+
+-- ----------------------------
+-- Table structure for luffy_order
+-- ----------------------------
+DROP TABLE IF EXISTS `luffy_order`;
+CREATE TABLE `luffy_order`  (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `updated_time` datetime(6) NOT NULL,
+  `is_delete` tinyint(1) NOT NULL,
+  `subject` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `total_amount` decimal(10, 2) NOT NULL,
+  `out_trade_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `trade_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `order_status` smallint NOT NULL,
+  `pay_type` smallint NOT NULL,
+  `pay_time` datetime(6) NULL DEFAULT NULL,
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `out_trade_no`(`out_trade_no` ASC) USING BTREE,
+  INDEX `luffy_order_user_id_e450c68c`(`user_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of luffy_order
+-- ----------------------------
+INSERT INTO `luffy_order` VALUES (2, '2023-02-08 17:10:18.702574', '2023-02-08 17:10:18.702574', 0, 'Linux系统基础5周入门精讲', 39.00, '38f8c52ebad24babaad82732cd94d33d', NULL, 0, 1, NULL, 1);
+
+-- ----------------------------
+-- Table structure for luffy_order_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `luffy_order_detail`;
+CREATE TABLE `luffy_order_detail`  (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `updated_time` datetime(6) NOT NULL,
+  `is_delete` tinyint(1) NOT NULL,
+  `price` decimal(8, 2) NOT NULL,
+  `real_price` decimal(8, 2) NOT NULL,
+  `course_id` bigint NULL DEFAULT NULL,
+  `order_id` bigint NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `luffy_order_detail_course_id_eb4f1d29`(`course_id` ASC) USING BTREE,
+  INDEX `luffy_order_detail_order_id_57bb4e1a`(`order_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of luffy_order_detail
+-- ----------------------------
+INSERT INTO `luffy_order_detail` VALUES (3, '2023-02-08 17:10:18.704571', '2023-02-08 17:10:18.704571', 0, 39.00, 39.00, 3, 2);
 
 -- ----------------------------
 -- Table structure for luffy_teacher
@@ -395,7 +463,7 @@ CREATE TABLE `luffy_teacher`  (
   `image` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `brief` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of luffy_teacher
@@ -422,15 +490,19 @@ CREATE TABLE `luffy_userinfo`  (
   `date_joined` datetime(6) NOT NULL,
   `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `avatar` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `token_expiry_date` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username` ASC) USING BTREE,
-  UNIQUE INDEX `mobile`(`mobile` ASC) USING BTREE
+  UNIQUE INDEX `mobile`(`mobile` ASC) USING BTREE,
+  INDEX `idx_name_pwd`(`username` ASC, `password` ASC) USING BTREE,
+  INDEX `luffy_userinfo_token_28653843`(`token` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of luffy_userinfo
 -- ----------------------------
-INSERT INTO `luffy_userinfo` VALUES (1, 'pbkdf2_sha256$260000$KkonLJpWS1nlP5fIaExUhe$FeFrMTlQMLqgiUGup9tLkCti3lhAeb4ecYd7QDc60us=', '2023-01-30 19:48:46.670934', 1, 'root', '', '', 'hkwJsxl@gmail.com', 1, 1, '2023-01-30 19:48:39.179164', '', 'avatars/default.png');
+INSERT INTO `luffy_userinfo` VALUES (1, 'pbkdf2_sha256$260000$KkonLJpWS1nlP5fIaExUhe$FeFrMTlQMLqgiUGup9tLkCti3lhAeb4ecYd7QDc60us=', '2023-01-30 19:48:46.670934', 1, 'root', '', '', 'hkwJsxl@gmail.com', 1, 1, '2023-01-30 19:48:39.179164', '', 'avatars/default.png', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InJvb3QiLCJleHAiOjE2NzY0NTIyMTYsImVtYWlsIjoiaGt3SnN4bEBnbWFpbC5jb20ifQ.NBwWsBtsTN5FGSEVeUNw07akvBMedKiHmrws9Cyp6jI', '2023-02-22 17:10:16.982230');
 
 -- ----------------------------
 -- Table structure for luffy_userinfo_groups
