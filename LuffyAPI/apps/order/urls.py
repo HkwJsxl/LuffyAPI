@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from views import order
 
@@ -6,6 +6,7 @@ from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()
 router.register('pay', order.OrderPayView)
+router.register('detail', order.OrderDetailView)
 
 """
 1）支付接口(需要登录认证)：前台提交商品等信息，得到支付链接

@@ -97,3 +97,16 @@ class OrderPayModelSerializer(serializers.ModelSerializer):
                 )
             models.OrderDetail.objects.bulk_create(course_detail_list)
         return validated_data
+
+
+class OrderDetailModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Order
+        fields = (
+            'subject',
+            'out_trade_no',
+            'order_status_name',
+            'pay_type_name',
+            'pay_time',
+            'courses',
+        )

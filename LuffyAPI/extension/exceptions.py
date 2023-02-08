@@ -14,4 +14,4 @@ def re_exception_handler(exc, context):
     if isinstance(response.data, list):
         return APIResponse(return_code.EXCEPTION_ERROR, response.data)
     else:
-        return APIResponse(return_code.EXCEPTION_ERROR, response.data.get('detail'))
+        return APIResponse(return_code.EXCEPTION_ERROR, response.data.get('detail') or response.data)

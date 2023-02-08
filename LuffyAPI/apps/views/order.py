@@ -6,17 +6,19 @@ from rest_framework.response import Response
 
 from order import models
 from serializers import order
-from LuffyAPI.extension.mixins import ReCreateModelMixin
+from LuffyAPI.extension.mixins import ReCreateModelMixin, ReListModelMixin
 from LuffyAPI.extension.response import APIResponse
 from LuffyAPI.extension.auth import TokenHeaderAuthentication
 from LuffyAPI.libs.pay_api.client import alipay
 from LuffyAPI.extension.logger import log
+from LuffyAPI.extension.filter import SelfFilterBackend
 
 
 class OrderPayView(GenericViewSet, ReCreateModelMixin):
+    """订单支付"""
     authentication_classes = (TokenHeaderAuthentication,)
 
-    queryset = models.Order.objects.all()
+    queryset = models.Order.objects.filter(is_delete=False)
     serializer_class = order.OrderPayModelSerializer
 
     def perform_create(self, serializer):
@@ -25,6 +27,8 @@ class OrderPayView(GenericViewSet, ReCreateModelMixin):
 
 
 class OrderPaySuccessView(APIView):
+    """订单成功后的回调"""
+
     def get(self, request, *args, **kwargs):
         # 前台的get同步回调
         # print(request.query_params)
@@ -103,3 +107,12 @@ class OrderPaySuccessView(APIView):
         except Exception as e:
             log.error('支付宝的post异步回调错误-%s' % str(e))
             return Response('errors')
+
+
+class OrderDetailView(GenericViewSet, ReListModelMixin):
+    """订单详情"""
+    authentication_classes = (TokenHeaderAuthentication,)
+    filter_backends = (SelfFilterBackend,)
+
+    queryset = models.Order.objects.filter(is_delete=False)
+    serializer_class = order.OrderDetailModelSerializer

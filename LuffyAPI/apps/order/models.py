@@ -47,16 +47,22 @@ class Order(OrderBaseModel):
     def __str__(self):
         return "%s - ￥%s" % (self.subject, self.total_amount)
 
-    @property
     def courses(self):
         data_list = []
         for item in self.order_courses.all():
             data_list.append({
                 "id": item.id,
                 "course_name": item.course.name,
+                "price": item.price,
                 "real_price": item.real_price,
             })
         return data_list
+
+    def order_status_name(self):
+        return self.get_order_status_display()
+
+    def pay_type_name(self):
+        return self.get_pay_type_display()
 
 
 class OrderDetail(OrderBaseModel):
