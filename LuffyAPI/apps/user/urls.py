@@ -10,6 +10,7 @@ router.register('register', account.UserRegisterView)
 urlpatterns = [
     path('login/', account.UserLoginView.as_view(), name='login'),
     path('sms/', account.GetSmsView.as_view(), name='sms'),
+    path('register/email/', account.VerifyEmailView.as_view(), name='email'),
 ]
 
 urlpatterns += router.urls

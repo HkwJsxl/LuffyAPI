@@ -47,3 +47,8 @@ RETURN_URL = FRONT_END_URL + "/pay/success"
 
 # jwt token过期时间
 TOKEN_EXPIRATION = ''
+
+# 邮箱注册验证
+
+EMAIL_SECRET_KEY = '邮箱验证,我说的杀人犯是高启强啊.'
+EMAIL_VERIFY_URL = '%s/user/register/email/' % BACKEND_URL
