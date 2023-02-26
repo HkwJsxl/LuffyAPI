@@ -15,7 +15,7 @@ sys.path.insert(1, os.path.join(BASE_DIR, 'apps'))
 
 SECRET_KEY = "django-insecure-6#)3o)!19s5=4aequ3_hl$r73y0-q_#-jq$eqqk32x=p)e1o2-"
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -71,13 +71,17 @@ WSGI_APPLICATION = "LuffyAPI.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': MYSQL_DB_NAME,
-        'USER': MYSQL_DB_USER,
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        'HOST': '%s' % MYSQL_HOST,
-        'PORT': MYSQL_PORT
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'sqlite3',
     }
+    # "default": {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': MYSQL_DB_NAME,
+    #     'USER': MYSQL_DB_USER,
+    #     'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+    #     'HOST': '%s' % MYSQL_HOST,
+    #     'PORT': MYSQL_PORT
+    # }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -108,7 +112,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATIC_URL = "/static/"
 # STATIC_ROOT = '/home/project/luffyapi/luffyapi/static'  # 上线后的路径
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 )
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
