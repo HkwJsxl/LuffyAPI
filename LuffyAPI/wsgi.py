@@ -2,6 +2,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LuffyAPI.settings.dev')  # 本地测试LuffyAPI.settings.dev
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LuffyAPI.settings.pro')  # 本地测试LuffyAPI.settings.dev
 
 application = get_wsgi_application()
