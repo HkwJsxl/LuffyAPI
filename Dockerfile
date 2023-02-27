@@ -4,9 +4,7 @@ EXPOSE 8080
 COPY requirements.txt /tmp/
 RUN pip install -r /tmp/requirements.txt -i https://pypi.douban.com/simple/
 COPY . /tmp/
-VOLUME ["/home"]
-WORKDIR /home/luffyapi
-CMD ["uwsgi", "--ini", "/home/luffyapi/uwsgi.ini"]
-CMD ["python", "/home/luffyapi/manage_pro.py", "makemigrations"]
-CMD ["python", "/home/luffyapi/manage_pro.py", "migrate"]
-CMD ["python", "/home/luffyapi/manage_pro.py", "runserver","0.0.0.0:8080"]
+VOLUME ["/tmp"]
+WORKDIR /tmp
+CMD ["uwsgi", "--ini", "/tmp/uwsgi.ini"]
+CMD ["python", "/tmp/manage_pro.py", "runserver", "0.0.0.0:8080"]
