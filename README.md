@@ -1,6 +1,6 @@
 # 路飞项目
 
-v1前端：https://github.com/HkwJsxl/luffycity
+vue前端：https://github.com/HkwJsxl/luffycity
 
 ## 项目目录
 
@@ -12,7 +12,9 @@ v1前端：https://github.com/HkwJsxl/luffycity
 >	
 > 	├── logs/		项目开发日志目录 - 包
 >	
-> 	├── manage.py		 脚本文件
+> 	├── manage.py		 测试运行脚本
+> 
+> 	├── manage_pro.py		 上线运行脚本
 >	
 > 	├── LuffyAPI/		项目主应用，开发时的代码保存 - 包
 >	
@@ -26,6 +28,8 @@ v1前端：https://github.com/HkwJsxl/luffycity
 >	
 > 	├── settings/		配置目录 - 包
 >	
+> 		├── const.py		配置文件常量
+> 
 > 		├── dev.py		项目开发时的本地配置
 > 			
 > 		└── pro.py		项目上线时的运行配置
@@ -35,6 +39,10 @@ v1前端：https://github.com/HkwJsxl/luffycity
 > 	└── utils/		多个模块[子应用]的公共函数类库[自己开发的组件]
 >	
 > 	└── scripts/		保存项目运营时的脚本文件或自测脚本 - 文件夹 (不上传)
+> 
+> 	├── Dockerfile		 dockerfile部署文件
+> 
+> 	├── docker-compose.yml		 docker-compose部署文件
 
 ## 功能
 
@@ -47,5 +55,5 @@ v1前端：https://github.com/HkwJsxl/luffycity
 5.课程分类，课程章节
 6.搜索课程
 7.支付宝支付，订单详情
+8.docker部署，dockerfile部署，docker-compose部署(https://www.cnblogs.com/hkwJsxl/p/17164139.html)
 ~~~
-
